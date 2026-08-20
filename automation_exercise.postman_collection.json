@@ -167,6 +167,53 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "POST To Search Product without search_product parameter (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response status is 200\", function () { \r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response code is 400\", function () {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.responseCode).to.eql(400);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response message contains 'Bad request'\", function () {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.message).to.include(\"Bad request\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": []
+            },
+            "url": {
+              "raw": "{{base_url}}/api/searchProduct",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "searchProduct"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -181,10 +228,13 @@
               "script": {
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {\r",
-                  "    const jsonData = pm.response.json();\r",
-                  "    \r",
-                  "    pm.expect(jsonData.responseCode).to.eql(200);\r",
+                  "    pm.response.to.have.status(200);\r",
                   "});\r",
+                  "\r",
+                  "pm.test(\"Resonse code is 200\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.responseCode).to.eql(200);\r",
+                  "})\r",
                   "\r",
                   "pm.test(\"Response returns brands\", function () {\r",
                   "    const jsonData = pm.response.json();\r",
@@ -264,6 +314,696 @@
               "path": [
                 "api",
                 "brandsList"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User Accounts",
+      "item": [
+        {
+          "name": "POST To Create/Register User Account",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response code is 201\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.responseCode).to.eql(201);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response message is 'User created!'\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.message).to.eql(\"User created!\");\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "name",
+                  "value": "Testactular Testarossa",
+                  "type": "text",
+                  "uuid": "e67b1749-d01d-4e5d-a48f-0794176ded2a"
+                },
+                {
+                  "key": "email",
+                  "value": "testacular@testing.com",
+                  "type": "text",
+                  "uuid": "b7f68645-a067-429d-bd34-8c634d92d119"
+                },
+                {
+                  "key": "password",
+                  "value": "password",
+                  "type": "text",
+                  "uuid": "f28b48d1-c1d6-453f-84e7-cd58c9b63126"
+                },
+                {
+                  "key": "title",
+                  "value": "Mr",
+                  "type": "text",
+                  "uuid": "906aa2c9-aad0-47f8-9ace-d5f5b1ab0f1e"
+                },
+                {
+                  "key": "birth_date",
+                  "value": "20",
+                  "type": "text",
+                  "uuid": "46ad5e82-b073-4a70-9c73-e4c364a828d2"
+                },
+                {
+                  "key": "birth_month",
+                  "value": "05",
+                  "type": "text",
+                  "uuid": "11dafb4c-534d-4508-bd0d-9beccdc00d49"
+                },
+                {
+                  "key": "birth_year",
+                  "value": "1996",
+                  "type": "text",
+                  "uuid": "556ae269-5ebc-40e7-8432-8105926b0f4b"
+                },
+                {
+                  "key": "firstname",
+                  "value": "Testacular",
+                  "type": "text",
+                  "uuid": "68ad11f0-ea3e-4a58-94e4-af15bede3d61"
+                },
+                {
+                  "key": "lastname",
+                  "value": "Testarossa",
+                  "type": "text",
+                  "uuid": "b52ee99a-c17b-480c-aed1-f7f9f7a5fbc8"
+                },
+                {
+                  "key": "company",
+                  "value": "Testing Inc.",
+                  "type": "text",
+                  "uuid": "0841d4da-fb59-4e1c-afb6-5b6529b5e160"
+                },
+                {
+                  "key": "address1",
+                  "value": "123 Testing Ave.",
+                  "type": "text",
+                  "uuid": "45b7c4f7-dfbc-432a-ac09-7b975cc5506a"
+                },
+                {
+                  "key": "address2",
+                  "value": "Test Suite 3",
+                  "type": "text",
+                  "uuid": "88e90323-2246-41ae-8bd3-0dee9a036c5e"
+                },
+                {
+                  "key": "country",
+                  "value": "United States",
+                  "type": "text",
+                  "uuid": "96cac62f-0479-4679-a1a1-48dbb1fb6757"
+                },
+                {
+                  "key": "zipcode",
+                  "value": "29803",
+                  "type": "text",
+                  "uuid": "c219714f-1bdc-47b6-88e6-ca05d9fe7fee"
+                },
+                {
+                  "key": "state",
+                  "value": "SC",
+                  "type": "text",
+                  "uuid": "20091d03-66c8-491a-ba00-ff5caada168e"
+                },
+                {
+                  "key": "city",
+                  "value": "Aiken",
+                  "type": "text",
+                  "uuid": "f4beffa5-42e2-4912-9920-b403cbff0c93"
+                },
+                {
+                  "key": "mobile_number",
+                  "value": "8005555309",
+                  "type": "text",
+                  "uuid": "c2e03409-0db9-473d-b2ad-918aa0b2384d"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/createAccount",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "createAccount"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST To Verify Login with valid details",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 OK\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response Code is 400\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.responseCode).to.eql(200);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response message is 'User exists!'\", function () {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.message).to.eql(\"User exists!\");\r",
+                  "})\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "email",
+                  "value": "testacular@testing.com",
+                  "type": "text",
+                  "uuid": "f572f184-7ed9-46b4-82a8-e4e387c114fb"
+                },
+                {
+                  "key": "password",
+                  "value": "password",
+                  "type": "text",
+                  "uuid": "3b26f0d4-1612-4d7a-b27d-4190c2b49808"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/verifyLogin",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "verifyLogin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST To Verify Login without email parameter (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 OK\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response Code is 400\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.responseCode).to.eql(400);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response message includes 'Bad request'\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.message).to.include('Bad request');\r",
+                  "})\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "password",
+                  "value": "password",
+                  "type": "text",
+                  "uuid": "3b26f0d4-1612-4d7a-b27d-4190c2b49808"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/verifyLogin",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "verifyLogin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE To Verify Login (405)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\" , function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response code is 405\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.responseCode).to.eql(405);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response message is 'This request method is not supported'\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.message).to.eql(\"This request method is not supported.\");\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": []
+            },
+            "url": {
+              "raw": "{{base_url}}/api/verifyLogin",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "verifyLogin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET user account detail by email",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response code is 200\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.responseCode).to.eql(200);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"User details are returned\", function () {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.user.name).to.exist;\r",
+                  "    pm.expect(jsonData.user.email).to.exist;\r",
+                  "    pm.expect(jsonData.user.address1).to.eql(\"123 Testing Ave.\");\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/getUserDetailByEmail?email=testacular@testing.com",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "getUserDetailByEmail"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "testacular@testing.com"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT METHOD To Update User Account",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response code is 200\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.responseCode).to.eql(200);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response message is 'User updated!'\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.message).to.eql(\"User updated!\");\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "name",
+                  "value": "Testactular Testarossa",
+                  "type": "text",
+                  "uuid": "e67b1749-d01d-4e5d-a48f-0794176ded2a"
+                },
+                {
+                  "key": "email",
+                  "value": "testacular@testing.com",
+                  "type": "text",
+                  "uuid": "b7f68645-a067-429d-bd34-8c634d92d119"
+                },
+                {
+                  "key": "password",
+                  "value": "password",
+                  "type": "text",
+                  "uuid": "f28b48d1-c1d6-453f-84e7-cd58c9b63126"
+                },
+                {
+                  "key": "title",
+                  "value": "Mr",
+                  "type": "text",
+                  "uuid": "906aa2c9-aad0-47f8-9ace-d5f5b1ab0f1e"
+                },
+                {
+                  "key": "birth_date",
+                  "value": "20",
+                  "type": "text",
+                  "uuid": "46ad5e82-b073-4a70-9c73-e4c364a828d2"
+                },
+                {
+                  "key": "birth_month",
+                  "value": "05",
+                  "type": "text",
+                  "uuid": "11dafb4c-534d-4508-bd0d-9beccdc00d49"
+                },
+                {
+                  "key": "birth_year",
+                  "value": "1996",
+                  "type": "text",
+                  "uuid": "556ae269-5ebc-40e7-8432-8105926b0f4b"
+                },
+                {
+                  "key": "firstname",
+                  "value": "Testacular",
+                  "type": "text",
+                  "uuid": "68ad11f0-ea3e-4a58-94e4-af15bede3d61"
+                },
+                {
+                  "key": "lastname",
+                  "value": "Testarossa",
+                  "type": "text",
+                  "uuid": "b52ee99a-c17b-480c-aed1-f7f9f7a5fbc8"
+                },
+                {
+                  "key": "company",
+                  "value": "Testing Inc.",
+                  "type": "text",
+                  "uuid": "0841d4da-fb59-4e1c-afb6-5b6529b5e160"
+                },
+                {
+                  "key": "address1",
+                  "value": "123 Updated Blvd",
+                  "type": "text",
+                  "uuid": "45b7c4f7-dfbc-432a-ac09-7b975cc5506a"
+                },
+                {
+                  "key": "address2",
+                  "value": "Test Suite 3",
+                  "type": "text",
+                  "uuid": "88e90323-2246-41ae-8bd3-0dee9a036c5e"
+                },
+                {
+                  "key": "country",
+                  "value": "United States",
+                  "type": "text",
+                  "uuid": "96cac62f-0479-4679-a1a1-48dbb1fb6757"
+                },
+                {
+                  "key": "zipcode",
+                  "value": "29803",
+                  "type": "text",
+                  "uuid": "c219714f-1bdc-47b6-88e6-ca05d9fe7fee"
+                },
+                {
+                  "key": "state",
+                  "value": "SC",
+                  "type": "text",
+                  "uuid": "20091d03-66c8-491a-ba00-ff5caada168e"
+                },
+                {
+                  "key": "city",
+                  "value": "Aiken",
+                  "type": "text",
+                  "uuid": "f4beffa5-42e2-4912-9920-b403cbff0c93"
+                },
+                {
+                  "key": "mobile_number",
+                  "value": "8005555309",
+                  "type": "text",
+                  "uuid": "c2e03409-0db9-473d-b2ad-918aa0b2384d"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/updateAccount",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "updateAccount"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Confirm Updated User Account",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response code is 200\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.responseCode).to.eql(200);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"User details are updated\", function () {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.user.name).to.exist;\r",
+                  "    pm.expect(jsonData.user.email).to.exist;\r",
+                  "    pm.expect(jsonData.user.address1).to.eql(\"123 Updated Blvd\");\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/getUserDetailByEmail?email=testacular@testing.com",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "getUserDetailByEmail"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "testacular@testing.com"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST To Verify Login with invalid details (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 200\", function() {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response code is 404\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.responseCode).to.eql(404);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response message is 'User not found!'\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.message).to.eql(\"User not found!\");\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "email",
+                  "value": "-------------",
+                  "type": "text",
+                  "uuid": "2e82b3d1-ba84-4352-95ab-7afce8dbcfea"
+                },
+                {
+                  "key": "password",
+                  "value": "-------------",
+                  "type": "text",
+                  "uuid": "0793ba5d-a867-4e2d-afb8-846e6ccd1d37"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/verifyLogin",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "verifyLogin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE METHOD To Delete User Account",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response code is 200\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.responseCode).to.eql(200);\r",
+                  "})  \r",
+                  "\r",
+                  "pm.test(\"Response message is 'Account deleted!'\", function() {\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.message).to.eql(\"Account deleted!\");\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "email",
+                  "value": "testacular@testing.com",
+                  "type": "text",
+                  "uuid": "1a2da33b-44d3-46e3-87f7-cd16244a3684"
+                },
+                {
+                  "key": "password",
+                  "value": "password",
+                  "type": "text",
+                  "uuid": "4ae05489-0a65-43f4-9a95-d82ac1bd8b6f"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/deleteAccount",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "deleteAccount"
               ]
             }
           },
